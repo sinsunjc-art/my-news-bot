@@ -49,9 +49,10 @@ def run():
         msg['From'] = EMAIL_ADDR
         msg['To'] = EMAIL_ADDR # 본인에게 발송
 
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-            server.login(EMAIL_ADDR, EMAIL_PASS)
-            server.send_message(msg)
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+    server.starttls() # 보안 연결 시작
+    server.login(EMAIL_ADDR, EMAIL_PASS)
+    server.send_message(msg)
         
         # 새로운 내용 저장
         with open("last_title.txt", "w", encoding="utf-8") as f:
